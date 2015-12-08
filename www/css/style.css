@@ -87,5 +87,8 @@ div.main-image
 {
     color: #585656;
     text-align: right;
-    margin-top: -34px;
+    margin-top: -40px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+
 }
