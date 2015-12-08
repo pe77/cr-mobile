@@ -129,7 +129,7 @@ angular.module('cr.services', ['ngResource'])
 
 .factory('GenericService', ['ResourceFactory', '$resource', '$cacheFactory', function(ResourceFactory, $resource, $cacheFactory) {
 
-    var data = ResourceFactory.createResource(parameters.api_url + '/api/:route/:action/:token/:id/:filter/:page/:pageLimit/:date/:scope/:op/:reply', 
+    var data = ResourceFactory.createResource(config.api + '/:route/:action/:token/:id/:filter/:page/:pageLimit/:date/:scope/:op/:reply', 
     {
     },{ 
         all: {
@@ -139,6 +139,10 @@ angular.module('cr.services', ['ngResource'])
         },
         get: {
             method:'GET',
+            params:{action: 'get'}
+        },
+        send: {
+            method:'POST',
             params:{action: 'get'}
         },
         save: {
