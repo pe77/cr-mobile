@@ -1,19 +1,26 @@
 angular.module('cr.controllers')
 
 .controller('DashboardController', function($scope, $rootScope, $http) {
-	$scope.chat = {
-		question:'',
-		response:''
+	$scope.chat = 
+	{
+		messages:[]
 	}
 
 	$scope.user = {
 		question:''
 	}
 
+	$scope.ClearChat = function()
+	{
+		$scope.chat.messages = [];
+	}
+
+
+
 	$scope.Send = function()
 	{
 
-		if($scope.chat.question == '' && false)
+		if($scope.user.question == '')
 			return;
 		//
 
@@ -21,14 +28,11 @@ angular.module('cr.controllers')
 		$rootScope.loading = true;
 
 
-		$scope.chat = {
-			question:'',
-			response:''
-		}
+		// limpa chat
+		$scope.ClearChat();
 
 		var question = "";
 		question = $scope.user.question;
-
 
 		$http({
 		  method: 'GET',
@@ -38,14 +42,81 @@ angular.module('cr.controllers')
 		  },
 		  url: config.api
 		}).then(function successCallback(response) {
+
+			var response = response.data;
+
 		    $rootScope.loading = false;
 
-		  	$scope.chat.response = response.data;
-		  	$scope.chat.question = question;
+		    // mostra na tela
+		    $scope.chat.messages.push({
+		    	q:question,
+		    	r:response.message
+		    });
 
+		    // limpa form
 		  	$scope.user.question = '';
 
-		}, $rootScope.ResponseFail);
+		}, function(){
+
+			// para o loading
+			$rootScope.loading = false;
+
+			// randomiza uma resposta
+			var message = '';
+			switch(Math.floor((Math.random() * 15) + 1))
+			{
+				case 1:
+					message = "Precisa de internet pra funcionar, jovem.";
+					break;
+
+				case 2:
+					message = "Coloca algum credito no celular aew, seu fudido!";
+					break;
+
+				case 3:
+					message = "Grande bosta ter um telefone foda se não tem dinheiro nem pro 3G!";
+					break;
+
+				case 4:
+					message = "Vá roubar o wifi do vizinho!";
+					break;
+
+				case 5:
+					message = "Arruma essa internet ai, rapaz.";
+					break;
+
+				case 6:
+					message = "JESUS COMO EU QUERO MORRER HOJE";
+					break;
+
+				case 7:
+					message = "Como espera que eu estrague sua vida sem internet?";
+					break;
+
+				case 8:
+					message = "Só funciono com internet. Assim como você!";
+					break;
+
+				default:
+					message = "...";
+			    //
+
+			}
+
+
+			// limpa form
+		  	$scope.user.question = '';
+
+			// exibe
+			$scope.chat.messages.push({
+		    	r:message
+		    });	
+
+		    $scope.chat.messages.push({
+		    	r:"(sem conexão)"
+		    });	
+			
+		});
 
 
 	}
