@@ -92,3 +92,12 @@ div.main-image
     padding-bottom: 5px;
 
 }
+
+.btn-mic
+{
+        position: relative;
+    top: -47px;
+    z-index: 9;
+    float: right;
+    margin-bottom: -47px;
+}

@@ -10,10 +10,39 @@ angular.module('cr.controllers')
 		question:''
 	}
 
+
 	$scope.ClearChat = function()
 	{
 		$scope.chat.messages = [];
 	}
+
+
+	$scope.Rec = function()
+	{
+		$scope.ClearChat();
+
+		var maxMatches = 3;
+        var promptString = "Fala ai!"; // optional
+        var language = "en-US";                     // optional
+        window.plugins.speechrecognizer.startRecognize(function(result){
+            
+            $scope.$apply(function () {
+            	$scope.user.question = result[0];
+            });
+            
+            // alert(result);
+
+        }, function(errorMessage){
+            
+            console.log("Error message: " + errorMessage);
+
+            $scope.chat.messages.push({
+		    	r:"Não entendi nada, fala direito."
+		    });
+
+        }, maxMatches, promptString);
+	}
+
 
 
 

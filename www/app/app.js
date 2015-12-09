@@ -24,6 +24,7 @@ var app = angular.module('cr', [
     if(window.StatusBar) {
       StatusBar.styleDefault();
     }
+
   });
 })
 
