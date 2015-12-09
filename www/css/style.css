@@ -101,3 +101,8 @@ div.main-image
     float: right;
     margin-bottom: -47px;
 }
+
+.input-label
+{
+    width: 70px;
+}
