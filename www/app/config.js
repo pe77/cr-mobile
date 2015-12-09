@@ -1,3 +1,3 @@
 var config = {
-	api:"http://77chan.com/modules/dcr2/",
+	api:"http://77chan.com/modules/cr2/",
 }
