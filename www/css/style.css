@@ -100,9 +100,15 @@ div.main-image
     z-index: 9;
     float: right;
     margin-bottom: -47px;
+    width:10%;
 }
 
 .input-label
 {
     width: 70px;
+}
+
+.question-box
+{
+    width:90%;
 }
