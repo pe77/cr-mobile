@@ -5,6 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 var app = angular.module('cr', [
 	'ionic',
+  'ngCordova',
 	'cr.controllers',
 	'cr.services',
 ])

@@ -16,6 +16,8 @@
   <preference name="BackupWebStorage" value="none"/>
   <preference name="Orientation" value="portrait" />
 
+  <preference name="AndroidPersistentFileLocation" value="Compatibility" />
+
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
   </feature>

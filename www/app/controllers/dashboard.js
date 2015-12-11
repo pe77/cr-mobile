@@ -1,6 +1,6 @@
 angular.module('cr.controllers')
 
-.controller('DashboardController', function($scope, $rootScope, $http) {
+.controller('DashboardController', function($scope, $rootScope, $http, $cordovaMedia) {
 	$scope.chat = 
 	{
 		messages:[]
@@ -41,6 +41,28 @@ angular.module('cr.controllers')
 		    });
 
         }, maxMatches, promptString);
+	}
+
+	$scope.PrecoDaGoiabinha = function()
+	{
+		var media = new Media('/android_asset/www/audio/xxx.mp3', function(){
+			alert('foi!');
+		}, function(){
+			alert('n foi');
+		}, mediaStatusCallback);
+
+        $cordovaMedia.play(media);
+
+
+        var mediaStatusCallback = function(status) {
+	        if(status == 1) {
+	            $ionicLoading.show({template: 'Loading...'});
+	        } else {
+	            $ionicLoading.hide();
+	        }
+	    }
+
+
 	}
 
 
