@@ -27,6 +27,7 @@
 
     <!-- lib etc -->
     <script src="lib/ng-cordova.min.js"></script>
+    <script src="lib/HeadsetDetection.js"></script>
 
     <!-- base -->
     <script src="app/app.js"></script>
@@ -43,6 +44,13 @@
 
   </head>
   <body ng-app="cr" ng-controller="GlobalController">
+     
+    <div class="fake-close" ng-if="fakeClose">
+        
+        <button ng-class="{'close-b':closeBtn == true}" class="button button-assertive icon ion-close close-a" ng-click="ChangeBtn()">
+          Pausar
+        </button>
+      </div>
 
     <ion-pane ng-controller="DashboardController">
 
@@ -51,9 +59,11 @@
       </ion-header-bar>
       <ion-content>
 
+      
+
 
       <div class="row row-center">
-        <div class="col col-50" ng-click="PrecoDaGoiabinha()"><img src="img/cenouro-2015-5.png" ></div>
+        <div class="col col-50" ng-click="PrecoDaGoiaba('Qual o preço da goiaba?')"><img src="img/cenouro-2015-5.png" ></div>
         <div class="col col-50">
 
           <div class="messages" ng-repeat="message in chat.messages">

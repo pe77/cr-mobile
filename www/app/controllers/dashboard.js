@@ -1,6 +1,6 @@
 angular.module('cr.controllers')
 
-.controller('DashboardController', function($scope, $rootScope, $http, $cordovaMedia) {
+.controller('DashboardController', function($scope, $rootScope, $http, $cordovaMedia, $ionicPlatform) {
 	$scope.chat = 
 	{
 		messages:[]
@@ -9,6 +9,25 @@ angular.module('cr.controllers')
 	$scope.user = {
 		question:''
 	}
+
+	$scope.goiaba 		= 0;
+	$scope.hasHeadphone = false;
+
+	
+	try
+	{
+		// checa se esta usando headphone
+		$ionicPlatform.ready(function(){
+			window.plugins.headsetdetection.detect(function(detected) {
+				$scope.hasHeadphone = detected;
+			});	
+		});
+
+	}catch(e ){
+		// bla bla bla
+	};
+	
+	
 
 
 	$scope.ClearChat = function()
@@ -43,26 +62,66 @@ angular.module('cr.controllers')
         }, maxMatches, promptString);
 	}
 
-	$scope.PrecoDaGoiabinha = function()
+
+	// não pergunte o preço da goiaba
+	$scope.PrecoDaGoiaba = function(question)
 	{
-		var media = new Media('/android_asset/www/audio/xxx.mp3', function(){
-			alert('foi!');
-		}, function(){
-			alert('n foi');
-		}, mediaStatusCallback);
 
-        $cordovaMedia.play(media);
+		// fez a pergunta
+    	if(question.match(/.?qual (o|é o) pre(c|ç)o da goiaba.*\?$/i))
+    	{
+
+    		if($scope.hasHeadphone)
+    		{
+    			$scope.ClearChat();
+    			$scope.user.question = '';
+
+    			$scope.chat.messages.push({
+			    	r:"Tá mais ou menos 4,02"
+			    });
+
+			    $scope.chat.messages.push({
+			    	r:"O preço pode variar dependendo onde você mora!"
+			    });
+
+    			return true;
+    		}
 
 
-        var mediaStatusCallback = function(status) {
-	        if(status == 1) {
-	            $ionicLoading.show({template: 'Loading...'});
-	        } else {
-	            $ionicLoading.hide();
-	        }
-	    }
+    		// coloca a layer pra "fechar"
+    		$rootScope.fakeClose = true;
+
+    		// toca o audio
+    		PlayX();
+
+    		return true;
+    	}
+
+	    return false;
+	}
+
+	// manda aquele ao vivo
+	function PlayX()
+	{
+		var src = '/android_asset/www/audio/xxx.mp3'; // aqui só funciona pra android
 
 
+  		var m = new Media(
+		src,
+  		function(){
+  			// roda denovo
+  			m.play();
+  		}, 
+  		function(){
+  			// alert('error' + error.message);
+  		});
+
+  		// aumenta o volume
+  		m.setVolume(1);
+  		window.system.setSystemVolume(1.0);
+
+  		// bota pra chorar
+  		m.play();
 	}
 
 
@@ -72,6 +131,11 @@ angular.module('cr.controllers')
 	{
 
 		if($scope.user.question == '')
+			return;
+		//
+
+		// verifica o preço da goiaba
+		if($scope.PrecoDaGoiaba($scope.user.question))
 			return;
 		//
 

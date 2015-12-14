@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.setesetechan.crmobilev2" version="0.3.4" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.setesetechan.crmobilev2" version="0.4.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>Cenouro Responde</name>
   <description>
         Responde perguntas de forma nem tão aleatoria assim.
@@ -14,19 +14,15 @@
   <preference name="DisallowOverscroll" value="true"/>
   <preference name="android-minSdkVersion" value="16"/>
   <preference name="BackupWebStorage" value="none"/>
-  <preference name="Orientation" value="portrait" />
-
-  <preference name="AndroidPersistentFileLocation" value="Compatibility" />
-
+  <preference name="Orientation" value="portrait"/>
+  <preference name="AndroidPersistentFileLocation" value="Compatibility"/>
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
   </feature>
-
   <platform name="android">
-    <icon src="www/icons/60.png" density="mdpi" />
-    <icon src="www/icons/80.png" density="ldpi" />
-    <icon src="www/icons/114.png" density="hdpi" />
-    <icon src="www/icons/120.png" density="xhdpi" />
+    <icon src="www/icons/60.png" density="mdpi"/>
+    <icon src="www/icons/80.png" density="ldpi"/>
+    <icon src="www/icons/114.png" density="hdpi"/>
+    <icon src="www/icons/120.png" density="xhdpi"/>
   </platform>
-
 </widget>

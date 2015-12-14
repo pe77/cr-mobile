@@ -112,3 +112,33 @@ div.main-image
 {
     width:90%;
 }
+
+
+.fake-close
+{
+    background-color: #000;
+    opacity: 0.85;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 99;
+    top:0;
+    left:0;
+}
+
+.fake-close button {
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 20px;
+    width: 100px;
+}
+
+.fake-close .close-b
+{
+    margin-left:50px;
+    margin-top: 150px;
+}

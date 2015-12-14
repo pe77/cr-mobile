@@ -4,6 +4,14 @@ angular.module('cr.controllers')
 
 	$rootScope.config 	      = config;
 	$rootScope.loading			  = false;
+	$rootScope.fakeClose	  = false;
+
+	$scope.closeBtn = false;
+
+	$scope.ChangeBtn = function()
+	{
+		$scope.closeBtn = !$scope.closeBtn;	
+	}	
 
 
 	// sempre que alterar o loading, coloca o carregando
