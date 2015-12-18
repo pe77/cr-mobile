@@ -12,6 +12,7 @@ angular.module('cr.controllers')
 
 	$scope.goiaba 		= 0;
 	$scope.hasHeadphone = false;
+	$scope.cenouroImage = $scope.cenouroImageDefaul = 'img/cenouro-2015-5.png';
 
 	
 	try
@@ -64,40 +65,32 @@ angular.module('cr.controllers')
 
 
 	// não pergunte o preço da goiaba
-	$scope.PrecoDaGoiaba = function(question)
+	$scope.PrecoDaGoiaba = function()
 	{
+		// se esta usando headphone, response normalmente
+		if($scope.hasHeadphone)
+		{
+			$scope.ClearChat();
+			$scope.user.question = '';
 
-		// fez a pergunta
-    	if(question.match(/.?qual (o|é o) pre(c|ç)o da goiaba.*\?$/i))
-    	{
+			$scope.chat.messages.push({
+		    	r:"Tá mais ou menos 4,02"
+		    });
 
-    		if($scope.hasHeadphone)
-    		{
-    			$scope.ClearChat();
-    			$scope.user.question = '';
+		    $scope.chat.messages.push({
+		    	r:"O preço pode variar dependendo onde você mora!"
+		    });
 
-    			$scope.chat.messages.push({
-			    	r:"Tá mais ou menos 4,02"
-			    });
-
-			    $scope.chat.messages.push({
-			    	r:"O preço pode variar dependendo onde você mora!"
-			    });
-
-    			return true;
-    		}
+			return;
+		}
 
 
-    		// coloca a layer pra "fechar"
-    		$rootScope.fakeClose = true;
+		// coloca a layer pra "fechar"
+		$rootScope.fakeClose = true;
 
-    		// toca o audio
-    		PlayX();
+		// toca o audio
+		PlayX();
 
-    		return true;
-    	}
-
-	    return false;
 	}
 
 	// manda aquele ao vivo
@@ -134,11 +127,6 @@ angular.module('cr.controllers')
 			return;
 		//
 
-		// verifica o preço da goiaba
-		if($scope.PrecoDaGoiaba($scope.user.question))
-			return;
-		//
-
 		// carregando
 		$rootScope.loading = true;
 
@@ -162,11 +150,51 @@ angular.module('cr.controllers')
 
 		    $rootScope.loading = false;
 
-		    // mostra na tela
-		    $scope.chat.messages.push({
-		    	q:question,
-		    	r:response.message
-		    });
+
+		    // verifica se voltou com mensagem
+		    if(response.message)
+		    {
+		    	// mostra na tela
+			    $scope.chat.messages.push({
+			    	q:question,
+			    	r:response.message
+			    });
+		    }
+
+		    // volta imagem pra default pro default
+		    $scope.cenouroImage = $scope.cenouroImageDefaul;
+
+		    // verifica data
+		    if(response.data)
+		    {
+		    	for (var i = response.data.length - 1; i >= 0; i--) {
+
+		    		// procurando cheats
+		    		if(response.data[i].cheat)
+		    		{
+		    			var cheatCode = parseInt(response.data[i].cheat);
+
+		    			switch(cheatCode)
+		    			{
+		    				case 1: // solta a goiaba
+		    					$scope.PrecoDaGoiaba();
+		    					break;
+		    			}
+		    		}
+
+
+		    		// procura por imagens
+		    		if(response.data[i].image)
+		    		{
+		    			// troca o avatar pelo que foi passado
+		    			$scope.cenouroImage = config.api + response.data[i].image;
+		    			
+		    		}
+
+		    	};
+		    }
+
+		    
 
 		    // limpa form
 		  	$scope.user.question = '';
